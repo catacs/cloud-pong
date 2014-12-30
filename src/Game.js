@@ -27,7 +27,12 @@ Pong.Game.prototype = {
     create: function() {
         console.log("Game Started");
         // Activate Physics Engine
+        //this.physics.startSystem(Phaser.Physics.ARCADE);
+        //	Enable p2 physics
         this.physics.startSystem(Phaser.Physics.ARCADE);
+
+        //  Make things a bit more bouncey
+        //this.physics.p2.defaultRestitution = 0.7;
         this.physics.arcade.checkCollision.right = false;
         this.physics.arcade.checkCollision.left = false;
         
@@ -35,7 +40,8 @@ Pong.Game.prototype = {
         this.add.sprite(0, 0, 'gameBackground');
 
         // Create ball
-        this.ball = this.add.sprite(this.world.centerX-this.ballDiameter/2, this.world.centerY-this.ballDiameter/2, 'ball', 'assets/ball.png');
+        var ballImage = this.cache.getImage('ball');
+        this.ball = this.add.sprite((this.world.width - ballImage.width) / 2, (this.world.height - ballImage.height) / 2, 'ball', 'assets/ball.png');
         // Add physics to ball
         this.physics.enable(this.ball, Phaser.Physics.ARCADE);
         this.ball.checkWorldBounds = true;
@@ -47,12 +53,14 @@ Pong.Game.prototype = {
         this.ball.events.onOutOfBounds.add(this.ballLost, this);
 
         // Create player right
-        this.playerRight = this.add.sprite(this.world.width - (4*16), (this.world.height-30)/2, 'playerRight');
+        var playerRightImage = this.cache.getImage('playerRight');
+        this.playerRight = this.add.sprite(this.world.width - (3*playerRightImage.width), (this.world.height-playerRightImage.height)/2, 'playerRight');
         this.physics.enable(this.playerRight, Phaser.Physics.ARCADE);
         this.playerRight.body.immovable = true;
         
         // Create player left
-        this.playerLeft =  this.add.sprite(3*16, (this.world.height-30)/2, 'playerLeft');
+        var playerLeftImage = this.cache.getImage('playerLeft');
+        this.playerLeft =  this.add.sprite(2*(playerLeftImage.width), (this.world.height-playerLeftImage.height)/2, 'playerLeft');
         this.physics.enable(this.playerLeft, Phaser.Physics.ARCADE);
         this.playerLeft.body.immovable = true;
         
@@ -64,11 +72,11 @@ Pong.Game.prototype = {
         
         // Render scoreboard
         var scoreLeftText = String(this.playerLeftActualLife);
-        var styleLeft = { font: "40px Arial", fill: "#ffffff", align: "left" };
+        var styleLeft = { font: "40px Arial", fill: "#477fab ", align: "left" };
         this.scoreLeft = this.add.text(40, 0, scoreLeftText, styleLeft);
         
         var scoreRightText = String(this.playerRightActualLife);
-        var styleRight = { font: "40px Arial", fill: "#ffffff", align: "right" };
+        var styleRight = { font: "40px Arial", fill: "#477fab", align: "right" };
         this.scoreRight = this.add.text(this.world.width - 80, 0, scoreRightText, styleRight);
 
     },
@@ -162,9 +170,14 @@ Pong.Game.prototype = {
         {
             this.scoreRight.setText(String(this.playerRightActualLife));
             this.scoreLeft.setText(String(this.playerLeftActualLife));
-            this.ball.reset(this.world.centerX-this.ballDiameter/2, this.world.centerY-this.ballDiameter/2);
+            // Reset ball
+            this.ball.reset((this.world.height - this.ball.width) / 2, (this.world.height - this.ball.width) / 2);
             this.ball.body.velocity.x = 200 * ((Math.random() > 0.5) ? -1 :  1);
-            this.ball.body.velocity.y = Math.random() * 100 * ((Math.random() > 0.5) ? -1 :  1);
+            this.ball.body.velocity.y = Math.random() * 100 * ((Math.random() > 0.5) ? -1 : 1);
+
+            //Reset Players
+            this.playerLeft.y = this.world.centerY - this.playerLeft.height/2;
+            this.playerRight.y = this.world.centerY - this.playerRight.height/2;
         }
 
     },    

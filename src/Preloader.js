@@ -10,7 +10,7 @@ Pong.Preloader.prototype = {
         this.load.image('menuBackground', 'assets/background.png');
         this.load.image('gameBackground', 'assets/background_game.png');
         this.load.image('title', 'assets/game_title.png' );
-        this.load.spritesheet('button-start', 'assets/button-start.png', 401, 143);
+        this.load.spritesheet('button-start', 'assets/button-start.png', 196, 70);
     },
     create: function() {
         console.log("Preloader");

@@ -150,6 +150,7 @@ a:focus {
     overflow: hidden;
     padding-right: 0px;
     padding-left: 0px;
+    width: auto;
     background-image: -moz-linear-gradient(top, #f6f2ec, #e2dbce); /* FF3.6 */
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f6f2ec),color-stop(1, #e2dbce)); /* Saf4+, Chrome */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f6f2ec', EndColorStr='#e2dbce'); /* IE6,IE7 */

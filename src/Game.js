@@ -57,14 +57,31 @@ Pong.Game.prototype = {
         this.playerRight = this.add.sprite(this.world.width - (3*playerRightImage.width), (this.world.height-playerRightImage.height)/2, 'playerRight');
         this.physics.enable(this.playerRight, Phaser.Physics.ARCADE);
         this.playerRight.body.immovable = true;
+        this.playerRight.inputEnabled = true;
+
+        //  This allows you to drag the sprite. The parameter controls if you drag from the position you touched it (false)
+        //  or if it will snap to the center (true)
+        this.playerRight.input.enableDrag();
+
+        //  This will lock the sprite so it can only be dragged vertically, not horizontally
+        this.playerRight.input.allowHorizontalDrag = false;
         
         // Create player left
         var playerLeftImage = this.cache.getImage('playerLeft');
         this.playerLeft =  this.add.sprite(2*(playerLeftImage.width), (this.world.height-playerLeftImage.height)/2, 'playerLeft');
         this.physics.enable(this.playerLeft, Phaser.Physics.ARCADE);
         this.playerLeft.body.immovable = true;
+
+        this.playerLeft.inputEnabled = true;
+
+        //  This allows you to drag the sprite. The parameter controls if you drag from the position you touched it (false)
+        //  or if it will snap to the center (true)
+        this.playerLeft.input.enableDrag();
+
+        //  This will lock the sprite so it can only be dragged vertically, not horizontally
+        this.playerLeft.input.allowHorizontalDrag = false;
         
-        // Add input keyboard controller
+        // Add input keyboard controller. Left W, S and right Up, Down.
         this.playerLeftUp = this.input.keyboard.addKey(Phaser.Keyboard.W);
         this.playerLeftDown = this.input.keyboard.addKey(Phaser.Keyboard.S);
         this.playerRightUp = this.input.keyboard.addKey(Phaser.Keyboard.UP);

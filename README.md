@@ -1,4 +1,4 @@
 cloud-pong
 ==========
 
-Pong game in cloud environment (testing phaser lib)
+Pong game in cloud environment
